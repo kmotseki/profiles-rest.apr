@@ -23,7 +23,7 @@ class UserProfileManager(BaseUserManager):
         """Create and save a new superuser with given details"""
         user= self.create_user(email, name, password)
 
-        # is_superuser is automatically created by the PermissionsMixin. We just set it to True
+        # is_superuser is automatically created by the PermissionsMixin. We set it to True
         user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)
@@ -38,6 +38,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
+    # overide default django user creation function with UserProfileManager
     objects = UserProfileManager()
 
     USERNAME_FIELD = 'email'
